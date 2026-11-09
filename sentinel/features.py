@@ -150,7 +150,7 @@ def build_features(df: pd.DataFrame) -> pd.DataFrame:
         digital = np.isin(typ_sorted[a:b], ["ECOM", "TRANSFER", "BILL_PAY"])
         dv = pd.Series(dev_sorted[a:b])
         if digital.any() and k > 1:
-            md = dv[digital].mode().iloc[0]
+            md = dv[digital].astype(str).value_counts().index[0]
             newdev[a:b] = digital & (dv.to_numpy() != md) & (dv.to_numpy() != "")
         # distinct cities within trailing 24h (small groups -> simple loop)
         if k > 1:
