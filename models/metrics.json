@@ -1,0 +1,255 @@
+{
+  "model": "HistGradientBoostingClassifier",
+  "baseline": "LogisticRegression (class-balanced)",
+  "trained_at": "2026-11-09T04:24:40+00:00",
+  "train_rows": 47994,
+  "validation_rows": 11999,
+  "holdout_rows": 15002,
+  "train_fraud_rate": 0.03487935991999,
+  "holdout_fraud_rate": 0.03512864951339821,
+  "boosting_iterations": 168,
+  "thresholds": {
+    "high": 0.5,
+    "medium": 0.15
+  },
+  "holdout": {
+    "roc_auc": 0.981894452582972,
+    "pr_auc": 0.8936590981857588,
+    "flagged_medium_plus": {
+      "tp": 447,
+      "fp": 125,
+      "fn": 80,
+      "tn": 14350,
+      "precision": 0.7814685314685315,
+      "recall": 0.8481973434535104,
+      "f1": 0.813466787989081
+    },
+    "flagged_high_only": {
+      "tp": 405,
+      "fp": 24,
+      "fn": 122,
+      "tn": 14451,
+      "precision": 0.9440559440559441,
+      "recall": 0.7685009487666035,
+      "f1": 0.8472803347280334
+    },
+    "by_fraud_type": {
+      "card_testing": {
+        "count": 113,
+        "caught": 111,
+        "recall": 0.9823008849557522
+      },
+      "cash_out": {
+        "count": 64,
+        "caught": 64,
+        "recall": 1.0
+      },
+      "risky_merchant": {
+        "count": 107,
+        "caught": 99,
+        "recall": 0.9252336448598131
+      },
+      "stealth": {
+        "count": 87,
+        "caught": 22,
+        "recall": 0.25287356321839083
+      },
+      "takeover": {
+        "count": 156,
+        "caught": 151,
+        "recall": 0.967948717948718
+      }
+    }
+  },
+  "baseline_holdout": {
+    "roc_auc": 0.9624283181432358,
+    "pr_auc": 0.8348368082631888
+  },
+  "features": [
+    {
+      "name": "amount",
+      "label": "Transaction amount"
+    },
+    {
+      "name": "log_amount",
+      "label": "Transaction amount (log scale)"
+    },
+    {
+      "name": "hour",
+      "label": "Hour of day"
+    },
+    {
+      "name": "dow",
+      "label": "Day of week"
+    },
+    {
+      "name": "is_night",
+      "label": "Night-time activity"
+    },
+    {
+      "name": "is_weekend",
+      "label": "Weekend activity"
+    },
+    {
+      "name": "round_amount",
+      "label": "Round-number amount"
+    },
+    {
+      "name": "failed_attempts_24h",
+      "label": "Failed attempts (24h)"
+    },
+    {
+      "name": "account_age_days",
+      "label": "Account age"
+    },
+    {
+      "name": "txn_count_1h",
+      "label": "Transactions in last hour"
+    },
+    {
+      "name": "txn_count_24h",
+      "label": "Transactions in last 24h"
+    },
+    {
+      "name": "mins_since_prev",
+      "label": "Time since previous transaction"
+    },
+    {
+      "name": "amount_to_user_mean",
+      "label": "Amount vs user's usual spend"
+    },
+    {
+      "name": "amount_zscore_user",
+      "label": "Amount deviation from user norm"
+    },
+    {
+      "name": "new_device",
+      "label": "Unrecognised device"
+    },
+    {
+      "name": "city_mismatch",
+      "label": "Unusual city for user"
+    },
+    {
+      "name": "country_mismatch",
+      "label": "Unusual country for user"
+    },
+    {
+      "name": "cities_24h",
+      "label": "Distinct cities in 24h"
+    },
+    {
+      "name": "transaction_type",
+      "label": "Transaction type"
+    },
+    {
+      "name": "merchant_category",
+      "label": "Merchant category"
+    },
+    {
+      "name": "device_type",
+      "label": "Device type"
+    },
+    {
+      "name": "country",
+      "label": "Country"
+    }
+  ],
+  "importance": [
+    {
+      "feature": "transaction_type",
+      "label": "Transaction type",
+      "importance": 0.26816083743558217
+    },
+    {
+      "feature": "amount",
+      "label": "Transaction amount",
+      "importance": 0.18766350879352386
+    },
+    {
+      "feature": "merchant_category",
+      "label": "Merchant category",
+      "importance": 0.16757793441855168
+    },
+    {
+      "feature": "round_amount",
+      "label": "Round-number amount",
+      "importance": 0.13606252566838334
+    },
+    {
+      "feature": "failed_attempts_24h",
+      "label": "Failed attempts (24h)",
+      "importance": 0.05947098767222782
+    },
+    {
+      "feature": "amount_to_user_mean",
+      "label": "Amount vs user's usual spend",
+      "importance": 0.043126567513439365
+    },
+    {
+      "feature": "mins_since_prev",
+      "label": "Time since previous transaction",
+      "importance": 0.03980765105740681
+    },
+    {
+      "feature": "txn_count_24h",
+      "label": "Transactions in last 24h",
+      "importance": 0.027363188496398582
+    },
+    {
+      "feature": "device_type",
+      "label": "Device type",
+      "importance": 0.026342143190360955
+    },
+    {
+      "feature": "city_mismatch",
+      "label": "Unusual city for user",
+      "importance": 0.01501720799014529
+    },
+    {
+      "feature": "amount_zscore_user",
+      "label": "Amount deviation from user norm",
+      "importance": 0.012710490607257034
+    },
+    {
+      "feature": "hour",
+      "label": "Hour of day",
+      "importance": 0.0062535926142430935
+    },
+    {
+      "feature": "txn_count_1h",
+      "label": "Transactions in last hour",
+      "importance": 0.004968506986334366
+    },
+    {
+      "feature": "new_device",
+      "label": "Unrecognised device",
+      "importance": 0.0030776713831967726
+    },
+    {
+      "feature": "account_age_days",
+      "label": "Account age",
+      "importance": 0.0016151201499176385
+    },
+    {
+      "feature": "dow",
+      "label": "Day of week",
+      "importance": 0.0007820660230311742
+    },
+    {
+      "feature": "country_mismatch",
+      "label": "Unusual country for user",
+      "importance": 0.0
+    },
+    {
+      "feature": "cities_24h",
+      "label": "Distinct cities in 24h",
+      "importance": 0.0
+    },
+    {
+      "feature": "country",
+      "label": "Country",
+      "importance": 0.0
+    }
+  ]
+}

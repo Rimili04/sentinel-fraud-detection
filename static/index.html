@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sentinel Upgraded | Batch fraud analytics</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<div class="bg"></div>
+<div class="shell">
+  <aside class="rail">
+    <div class="brand">
+      <div class="logo"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 4.5-3.2 8-8 9-4.8-1-8-4.5-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg></div>
+      <div><b>SENTINEL</b><small>Upgraded edition</small></div>
+    </div>
+    <nav class="nav" id="nav">
+      <button data-tab="landing" class="on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4M7 9l5-5 5 5"/><path d="M4 16v3a1 1 0 001 1h14a1 1 0 001-1v-3"/></svg>Upload data</button>
+      <button data-tab="overview" disabled><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg>Overview</button>
+      <button data-tab="patterns" disabled><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 17l5-6 4 4 8-10"/><path d="M3 21h18"/></svg>Patterns</button>
+      <button data-tab="transactions" disabled><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h10"/></svg>Suspicious list</button>
+      <button data-tab="model"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2"/></svg>Model</button>
+    </nav>
+    <div class="rail-foot" id="railfoot">Loading model...</div>
+  </aside>
+
+  <main>
+    <div class="top">
+      <div><h1 id="title">Batch fraud analytics</h1><p id="subtitle">Upload a transaction file and score every row in one pass.</p></div>
+      <div class="actions" id="actions" hidden>
+        <button class="btn" id="btn-new"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 4v12M6 10l6-6 6 6M5 20h14"/></svg>New file</button>
+        <a class="btn red" id="dl-sus" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 4v12M6 12l6 6 6-6M5 21h14"/></svg>Suspicious CSV</a>
+        <a class="btn blue" id="dl-full" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 4v12M6 12l6 6 6-6M5 21h14"/></svg>Full analysis CSV</a>
+      </div>
+    </div>
+
+    <input type="file" id="file" accept=".csv,text/csv" hidden>
+
+    <section id="landing" class="landing">
+      <div class="drop" id="drop" tabindex="0" role="button" aria-label="Choose a CSV file">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4M7 9l5-5 5 5"/><path d="M4 16v3a1 1 0 001 1h14a1 1 0 001-1v-3"/></svg></div>
+        <h2>Drop a transactions CSV</h2>
+        <p>Every row is scored in one batch. Thousands or hundreds of thousands of transactions, no one-at-a-time entry.</p>
+        <div class="row">
+          <button class="btn blue" id="btn-pick" type="button">Choose CSV file</button>
+          <button class="btn red" id="btn-sample" type="button">Run the 15,000-transaction demo</button>
+        </div>
+      </div>
+      <div id="landing-err"></div>
+      <div class="req">
+        <div class="panel"><h3>Required columns</h3>
+          <span class="code">transaction_id</span><span class="code">timestamp</span><span class="code">user_id</span><span class="code">amount</span>
+          <p class="note">Timestamp like 2026-10-01 14:32:10.</p></div>
+        <div class="panel"><h3>Optional columns (better accuracy)</h3>
+          <span class="code">transaction_type</span><span class="code">merchant_category</span><span class="code">city</span><span class="code">country</span><span class="code">device_type</span><span class="code">device_id</span><span class="code">failed_attempts_24h</span><span class="code">account_age_days</span>
+          <p class="note"><a href="/api/template.csv" style="color:var(--ice)">Download a template</a>. Add an <span class="code">is_fraud</span> column (0/1) to see precision and recall against your labels.</p></div>
+      </div>
+    </section>
+
+    <section id="dash" hidden>
+      <div id="tab-overview"></div>
+      <div id="tab-patterns" hidden></div>
+      <div id="tab-transactions" hidden></div>
+    </section>
+    <div id="tab-model" hidden></div>
+  </main>
+</div>
+
+<div class="scrim" id="scrim"></div>
+<aside class="drawer" id="drawer" aria-label="Transaction detail"></aside>
+<div class="tip" id="tip"></div>
+<div class="loader" id="loader" hidden><div><div class="spin"></div><b id="loadmsg">Scoring transactions...</b><p class="note">Building features, running the model and explaining flagged rows.</p></div></div>
+<script src="/static/app.js"></script>
+</body>
+</html>
