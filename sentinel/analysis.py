@@ -124,7 +124,11 @@ def run_analysis(raw: pd.DataFrame, bundle: dict, source_name: str = "upload.csv
     pipe = bundle["pipeline"]
     th = bundle["thresholds"]
 
-    p = score(pipe, X)
+    # Predict in smaller batches to reduce peak prediction memory.
+    p = np.empty(len(X), dtype=np.float32)
+    for start in range(0, len(X), 5000):
+        end = min(start + 5000, len(X))
+        p[start:end] = score(pipe, X.iloc[start:end])
     df["risk_score"] = np.round(p * 100, 1)
     df["risk_tier"] = assign_tiers(p, th)
     df["is_flagged"] = (df["risk_tier"] != "Low").astype(int)
