@@ -8,7 +8,7 @@ import pandas as pd
 from .features import OPTIONAL_DEFAULTS, build_features, validate_and_clean
 from .model import assign_tiers, contributions, score, top_reasons
 
-MAX_REASON_ROWS = 6000
+MAX_REASON_ROWS = 100
 AMOUNT_EDGES = [0, 5, 20, 50, 100, 250, 500, 1000, 2500, np.inf]
 AMOUNT_LABELS = ["<$5", "$5-20", "$20-50", "$50-100", "$100-250", "$250-500", "$500-1k", "$1k-2.5k", "$2.5k+"]
 
